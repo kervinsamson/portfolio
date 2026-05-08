@@ -834,6 +834,116 @@
       margin-top: .2rem;
     }
 
+    /* ── WORK IMAGE PREVIEW ── */
+    .work-preview {
+      width: 100%;
+      height: 180px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 1.4rem;
+      position: relative;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .work-preview svg, .work-preview img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      transition: transform .4s ease;
+      object-fit: cover;
+    }
+    .work-preview:hover svg, .work-preview:hover img { transform: scale(1.04); }
+    .work-preview .preview-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(9,12,15,.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .work-preview:hover .preview-overlay { opacity: 1; }
+    .preview-overlay span {
+      font-family: 'Space Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: .4rem 1rem;
+    }
+
+    /* featured card: side-by-side layout on desktop */
+    .work-card.featured .featured-inner {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .work-card.featured .work-preview {
+      height: 100%;
+      min-height: 220px;
+      margin-bottom: 0;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(9,12,15,.92);
+      z-index: 8000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      padding: 2rem;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-inner {
+      position: relative;
+      max-width: 820px;
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 2rem;
+    }
+    .lightbox-inner svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .lightbox-title {
+      font-family: 'Space Mono', monospace;
+      font-size: .65rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: none; border: 1px solid var(--border);
+      color: var(--muted); font-size: 1rem;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: border-color .2s, color .2s;
+    }
+    .lightbox-close:hover { border-color: var(--gold); color: var(--gold); }
+
+    @media (max-width: 900px) {
+      .work-card.featured .featured-inner {
+        grid-template-columns: 1fr;
+      }
+      .work-card.featured .work-preview {
+        height: 180px;
+        min-height: unset;
+        margin-bottom: 1.4rem;
+      }
+    }
+
     /* ── PITCH ── */
     #pitch {
       background: var(--bg2);
@@ -1231,7 +1341,7 @@
     <div class="hero-content">
       <div class="hero-eyebrow"><span>Professional Portfolio</span></div>
       <h1 class="hero-name">Kervin <em>Ralph</em><br>Samson</h1>
-      <p class="hero-title">Full-Stack Developer &nbsp;·&nbsp; ML Engineer &nbsp;·&nbsp; Team Lead</p>
+      <p class="hero-title">Full-Stack Developer &nbsp;·&nbsp; Team Lead</p>
       <p class="hero-desc">A computer science student from UP Los Baños who bridges the gap between data science and
         real-world software. I build systems that are not just functional — they're meaningful, from NIR spectral
         classifiers to full-stack alumni management platforms.</p>
@@ -1357,15 +1467,7 @@
                 <span class="detail">Node.js · Firebase · Agile</span>
               </div>
             </div>
-            <div class="timeline-item">
-              <div class="timeline-year">Ongoing</div>
-              <div class="timeline-content">
-                <h4>Independent Developer</h4>
-                <p>Freelance and academic projects spanning mobile apps, e-commerce platforms, and ML research tools.
-                </p>
-                <span class="detail">MERN · Flutter · Python</span>
-              </div>
-            </div>
+
           </div>
         </div>
 
@@ -1422,45 +1524,53 @@
         <div class="work-card featured reveal">
           <div class="work-num">01</div>
           <div class="work-type">Research Paper · CMSC 190 Special Problem</div>
-          <h3 class="work-title">Classification of High and Low Protein Corn Using NIR Spectral Data and Machine
-            Learning</h3>
-          <p class="work-desc">Benchmarked three ML models — PLS-DA, SVM-RBF, and a 1D-CNN — on NIR spectral data from
-            549 maize samples for binary protein classification. Applied Savitzky-Golay smoothing and stratified 80/20
-            splitting. Deployed the top model (PLS-DA) into a prototype web application with a Next.js frontend and
-            FastAPI backend, allowing users to upload CSV spectra and receive real-time protein class predictions.</p>
+          <h3 class="work-title">Classification of High and Low Protein Corn Using NIR Spectral Data and Machine Learning</h3>
 
-          <div class="work-metrics">
-            <div class="metric">
-              <div class="metric-val">90.32%</div>
-              <div class="metric-label">Best F1-Score (PLS-DA)</div>
+          <div class="featured-inner">
+            <!-- Preview image -->
+            <div class="work-preview" data-title="NIR Corn Protein Classifier — Research Overview" data-key="nir">
+              <img src="maize-classifier-preview.png" alt="NIR Corn Protein Classifier Preview" />
+              <div class="preview-overlay"><span>View Full Preview</span></div>
             </div>
-            <div class="metric">
-              <div class="metric-val">94.92%</div>
-              <div class="metric-label">Recall</div>
-            </div>
-            <div class="metric">
-              <div class="metric-val">549</div>
-              <div class="metric-label">Maize Samples</div>
-            </div>
-            <div class="metric">
-              <div class="metric-val">3</div>
-              <div class="metric-label">Models Benchmarked</div>
+
+            <!-- Card content -->
+            <div>
+              <p class="work-desc">Benchmarked three ML models — PLS-DA, SVM-RBF, and a 1D-CNN — on NIR spectral data from 549 maize samples for binary protein classification. Applied Savitzky-Golay smoothing and stratified 80/20 splitting. Deployed the top model (PLS-DA) into a prototype web application with a Next.js frontend and FastAPI backend, allowing users to upload CSV spectra and receive real-time protein class predictions.</p>
+
+              <div class="work-metrics">
+                <div class="metric">
+                  <div class="metric-val">90.32%</div>
+                  <div class="metric-label">Best F1-Score (PLS-DA)</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-val">94.92%</div>
+                  <div class="metric-label">Recall</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-val">549</div>
+                  <div class="metric-label">Maize Samples</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-val">3</div>
+                  <div class="metric-label">Models Benchmarked</div>
+                </div>
+              </div>
+
+              <div class="work-stack">
+                <span class="stack-pill">Python</span>
+                <span class="stack-pill">scikit-learn</span>
+                <span class="stack-pill">TensorFlow / Keras</span>
+                <span class="stack-pill">FastAPI</span>
+                <span class="stack-pill">Next.js</span>
+                <span class="stack-pill">SciPy</span>
+                <span class="stack-pill">NIR Spectroscopy</span>
+                <span class="stack-pill">PLS-DA</span>
+                <span class="stack-pill">SVM-RBF</span>
+                <span class="stack-pill">1D-CNN</span>
+              </div>
+              <a class="work-link" href="#">View Research Paper</a>
             </div>
           </div>
-
-          <div class="work-stack">
-            <span class="stack-pill">Python</span>
-            <span class="stack-pill">scikit-learn</span>
-            <span class="stack-pill">TensorFlow / Keras</span>
-            <span class="stack-pill">FastAPI</span>
-            <span class="stack-pill">Next.js</span>
-            <span class="stack-pill">SciPy</span>
-            <span class="stack-pill">NIR Spectroscopy</span>
-            <span class="stack-pill">PLS-DA</span>
-            <span class="stack-pill">SVM-RBF</span>
-            <span class="stack-pill">1D-CNN</span>
-          </div>
-          <a class="work-link" href="#">View Research Paper</a>
         </div>
 
         <!-- ICSync -->
@@ -1468,10 +1578,12 @@
           <div class="work-num">02</div>
           <div class="work-type">Software Project · Backend Team Lead</div>
           <h3 class="work-title">ICSync — Alumni Tracker & Relations Management System</h3>
-          <p class="work-desc">Designed and led the backend of a full-featured alumni tracker for the Institute of
-            Computer Science. Implemented authentication, authorization, and role-based access control middleware using
-            Firebase Auth. Coordinated a 9-person engineering team through Agile sprints, code reviews, and
-            cross-functional collaboration.</p>
+
+          <div class="work-preview" data-title="ICSync — Alumni Tracker Dashboard" data-key="icsync">
+            <img src="icsync-preview.png" alt="ICSync Dashboard Preview" />
+            <div class="preview-overlay"><span>View Full Preview</span></div>
+          </div>
+
           <div class="work-stack">
             <span class="stack-pill">Node.js</span>
             <span class="stack-pill">Express.js</span>
@@ -1486,51 +1598,18 @@
         <div class="work-card reveal">
           <div class="work-num">03</div>
           <div class="work-type">Internship Project · Institute of Plant Breeding</div>
-          <h3 class="work-title">NIR Prediction Web App — Analytical Services Laboratory</h3>
-          <p class="work-desc">Developed a full-stack web application for the IPB Analytical Services Laboratory at UPLB
-            that predicts grain quality parameters (moisture, protein, starch) from uploaded NIR spectra using PLS
-            regression models. Built to streamline and digitize routine lab workflows.</p>
+          <h3 class="work-title">NIR Prediction Native App — Analytical Services Laboratory</h3>
+
+          <div class="work-preview" data-title="NIR Prediction Native App — IPB Analytical Services Lab" data-key="ipb">
+            <img src="iris-preview.png" alt="NIR Prediction Native App Preview" />
+            <div class="preview-overlay"><span>View Full Preview</span></div>
+          </div>
+
           <div class="work-stack">
-            <span class="stack-pill">FastAPI</span>
-            <span class="stack-pill">React</span>
+            <span class="stack-pill">PySide6</span>
+            <span class="stack-pill">Python</span>
             <span class="stack-pill">PLS Regression</span>
             <span class="stack-pill">scikit-learn</span>
-            <span class="stack-pill">Python</span>
-          </div>
-          <a class="work-link" href="#">View Project</a>
-        </div>
-
-        <!-- El Gives -->
-        <div class="work-card reveal">
-          <div class="work-num">04</div>
-          <div class="work-type">Mobile App</div>
-          <h3 class="work-title">El Gives — Donation & Charitable Organization App</h3>
-          <p class="work-desc">Mobile donation platform connecting donors to charitable organizations. Programmed the
-            donor-facing view including browsing, scheduling donations, and tracking contributions. Built QR-based
-            donation verification and real-time status updates with Firebase.</p>
-          <div class="work-stack">
-            <span class="stack-pill">Flutter</span>
-            <span class="stack-pill">Dart</span>
-            <span class="stack-pill">Firebase</span>
-            <span class="stack-pill">QR Verification</span>
-          </div>
-          <a class="work-link" href="#">View Project</a>
-        </div>
-
-        <!-- Farm to Table -->
-        <div class="work-card reveal">
-          <div class="work-num">05</div>
-          <div class="work-type">Web App · E-Commerce</div>
-          <h3 class="work-title">Farm-to-Table — Farmer-to-Consumer Marketplace</h3>
-          <p class="work-desc">E-commerce platform connecting local farmers directly to consumers. Built with the full
-            MERN stack. Developed RESTful API endpoints for product management, order fulfillment, and user
-            transactions.</p>
-          <div class="work-stack">
-            <span class="stack-pill">MongoDB</span>
-            <span class="stack-pill">Express.js</span>
-            <span class="stack-pill">React</span>
-            <span class="stack-pill">Node.js</span>
-            <span class="stack-pill">REST API</span>
           </div>
           <a class="work-link" href="#">View Project</a>
         </div>
@@ -1633,6 +1712,15 @@
       </div>
     </div>
   </section>
+
+  <!-- ── LIGHTBOX ── -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-inner" id="lightboxInner">
+      <p class="lightbox-title" id="lightboxTitle"></p>
+      <div id="lightboxSvg"></div>
+      <button class="lightbox-close" id="lightboxClose">✕</button>
+    </div>
+  </div>
 
   <!-- ── FOOTER ── -->
   <footer>
@@ -1784,6 +1872,39 @@
       }, { threshold: .3 });
       document.querySelectorAll('section').forEach(s => secObs.observe(s));
     }
+
+    /* ── LIGHTBOX ── */
+    const lightbox      = document.getElementById('lightbox');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxSvg   = document.getElementById('lightboxSvg');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    // Full-size SVG definitions for lightbox
+    const lightboxSVGs = {
+      nir: `<img src="maize-classifier-preview.png" alt="NIR Corn Protein Classifier Preview" style="width:100%; height:auto; display:block; object-fit:contain;" />`,
+      icsync: `<img src="icsync-preview.png" alt="ICSync Dashboard Preview" style="width:100%; height:auto; display:block; object-fit:contain;" />`,
+      ipb: `<img src="iris-preview.png" alt="NIR Prediction Native App Preview" style="width:100%; height:auto; display:block; object-fit:contain;" />`
+    };
+
+    document.querySelectorAll('.work-preview').forEach(preview => {
+      preview.addEventListener('click', () => {
+        const key   = preview.dataset.key;
+        const title = preview.dataset.title;
+        lightboxTitle.textContent = title;
+        lightboxSvg.innerHTML = lightboxSVGs[key] || '';
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
   </script>
 </body>
 
