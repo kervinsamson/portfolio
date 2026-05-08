@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -958,65 +958,6 @@
       }
     }
 
-    /* ── PITCH ── */
-    #pitch {
-      background: var(--bg2);
-    }
-
-    .pitch-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-      margin-top: 4rem;
-    }
-
-    .pitch-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.05rem, 2vw, 1.3rem);
-      font-weight: 300;
-      line-height: 1.82;
-      color: var(--text);
-    }
-
-    .pitch-tips {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .tip-item {
-      display: flex;
-      gap: 1rem;
-      padding: 1.2rem;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      transition: border-color .2s;
-    }
-
-    .tip-item:hover {
-      border-color: var(--gold);
-    }
-
-    .tip-num {
-      font-family: 'Space Mono', monospace;
-      font-size: .65rem;
-      color: var(--gold);
-      min-width: 2rem;
-      padding-top: .1rem;
-    }
-
-    .tip-content h4 {
-      font-size: .9rem;
-      font-weight: 500;
-      margin-bottom: .25rem;
-    }
-
-    .tip-content p {
-      font-size: .8rem;
-      color: var(--muted);
-    }
-
     /* ── CONTACT ── */
     #contact {
       background: var(--bg);
@@ -1182,11 +1123,6 @@
         grid-column: span 2;
       }
 
-      .pitch-layout {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-
       .contact-layout {
         grid-template-columns: 1fr;
         gap: 3rem;
@@ -1329,7 +1265,6 @@
       <li><a href="#objective">Objective</a></li>
       <li><a href="#background">Background</a></li>
       <li><a href="#works">Works</a></li>
-      <li><a href="#pitch">Pitch</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -1342,7 +1277,6 @@
       <li><a href="#objective" class="mobile-link">Objective</a></li>
       <li><a href="#background" class="mobile-link">Background</a></li>
       <li><a href="#works" class="mobile-link">Works</a></li>
-      <li><a href="#pitch" class="mobile-link">Pitch</a></li>
       <li><a href="#contact" class="mobile-link">Contact</a></li>
     </ul>
     <p class="mobile-nav-footer">Kervin Ralph A. Samson · 2025</p>
@@ -1632,72 +1566,12 @@
 
   <div class="divider"></div>
 
-  <!-- ── PITCH ── -->
-  <section id="pitch">
-    <div class="section-inner">
-      <div class="section-label"><span>04 — The Pitch</span></div>
-      <h2 class="section-title reveal">My <em>Professional</em><br>Pitch</h2>
-      <div class="pitch-layout">
-        <div>
-          <p class="pitch-text reveal">
-            "I'm Kervin Samson — a computer science student from UP Los Baños who builds things that work and
-            <em>matter</em>. I've led a nine-person backend team, built a machine learning classifier that achieved a
-            90% F1-score in real corn protein analysis, and deployed NIR prediction tools used by actual lab personnel
-            at an internationally recognized research institute.
-            <br /><br />
-            What sets me apart is that I don't just write code — I understand the problem behind it. Whether I'm
-            architecting a role-based access system, training a PLS-DA model on spectral data, or managing sprint cycles
-            across a full engineering team, I bring the same level of rigor and ownership to every layer of the stack.
-            <br /><br />
-            I'm looking for an organization where engineering precision and real-world impact go hand in hand. I'm ready
-            to contribute from day one — and I'm just getting started."
-          </p>
-        </div>
-        <div class="pitch-tips">
-          <p
-            style="font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">
-            Scoring Checklist</p>
-          <div class="tip-item reveal">
-            <span class="tip-num">01</span>
-            <div class="tip-content">
-              <h4>Clear & Concise</h4>
-              <p>Delivered within 2–3 minutes with a sharp, memorable arc.</p>
-            </div>
-          </div>
-          <div class="tip-item reveal">
-            <span class="tip-num">02</span>
-            <div class="tip-content">
-              <h4>Prosodic Delivery</h4>
-              <p>Controlled volume, intentional pacing, confident tone throughout.</p>
-            </div>
-          </div>
-          <div class="tip-item reveal">
-            <span class="tip-num">03</span>
-            <div class="tip-content">
-              <h4>Unique Positioning</h4>
-              <p>Full-stack + ML + team leadership — a rare and specific combination.</p>
-            </div>
-          </div>
-          <div class="tip-item reveal">
-            <span class="tip-num">04</span>
-            <div class="tip-content">
-              <h4>Error-Free</h4>
-              <p>Factually grounded in real projects, no grammatical errors.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
   <!-- ── CONTACT ── -->
   <section id="contact">
     <div class="section-inner">
       <div class="contact-layout">
         <div>
-          <div class="section-label"><span>05 — Contact</span></div>
+          <div class="section-label"><span>04 — Contact</span></div>
           <h2 class="contact-cta reveal">Let's build<br><em>something</em><br>that matters.</h2>
           <p class="reveal" style="color:var(--muted);margin-top:1.5rem;font-size:.9rem;">Open to full-time roles,
             internships, and project collaborations in software engineering and applied machine learning.</p>
