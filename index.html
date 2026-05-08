@@ -404,6 +404,20 @@
       margin-top: 1.5rem;
       opacity: 0;
       animation: fadeUp .9s ease .6s forwards;
+      min-height: 1.5rem;
+    }
+
+    .typewriter-cursor {
+      font-family: 'Space Mono', monospace;
+      color: var(--gold);
+      animation: blink 1.2s step-end infinite;
+      margin-left: 2px;
+      font-weight: 700;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
 
     .hero-desc {
@@ -1341,12 +1355,11 @@
     <div class="hero-content">
       <div class="hero-eyebrow"><span>Professional Portfolio</span></div>
       <h1 class="hero-name">Kervin <em>Ralph</em><br>Samson</h1>
-      <p class="hero-title">Full-Stack Developer &nbsp;·&nbsp; Team Lead</p>
+      <p class="hero-title"><span id="typewriter">Full-Stack Developer · Team Lead</span><span class="typewriter-cursor">_</span></p>
       <p class="hero-desc">A computer science student from UP Los Baños who bridges the gap between data science and
         real-world software. I build systems that are not just functional — they're meaningful, from NIR spectral
         classifiers to full-stack alumni management platforms.</p>
       <div class="hero-meta">
-        <span class="hero-badge">GWA 1.65</span>
         <span class="hero-badge">UPLB · BS Computer Science</span>
         <span class="hero-badge">github.com/kervinsamson</span>
       </div>
@@ -1749,6 +1762,45 @@
         el.addEventListener('mouseleave', () => { cursor.style.width = '10px'; cursor.style.height = '10px'; ring.style.width = '36px'; ring.style.height = '36px'; });
       });
     }
+
+    /* ── TYPEWRITER EFFECT ── */
+    const typeWords = [
+      "Full-Stack Developer · Team Lead",
+      "Machine Learning Implementer",
+      "System Designer"
+    ];
+    let typeIndex = 0;
+    let charIndex = typeWords[0].length;
+    let isDeleting = true;
+    const typewriterEl = document.getElementById('typewriter');
+
+    function typeEffect() {
+      if (!typewriterEl) return;
+      const currentWord = typeWords[typeIndex];
+      
+      if (isDeleting) {
+        charIndex--;
+      } else {
+        charIndex++;
+      }
+
+      typewriterEl.textContent = currentWord.substring(0, charIndex);
+
+      let typeSpeed = isDeleting ? 30 : 60;
+
+      if (!isDeleting && charIndex === currentWord.length) {
+        typeSpeed = 3000; // Pause at the end of typing
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        typeIndex = (typeIndex + 1) % typeWords.length;
+        typeSpeed = 400; // Pause before typing next word
+      }
+
+      setTimeout(typeEffect, typeSpeed);
+    }
+
+    setTimeout(typeEffect, 3000);
 
     /* ── SCROLL PROGRESS ── */
     const bar = document.getElementById('progressBar');
