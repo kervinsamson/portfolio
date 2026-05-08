@@ -1787,18 +1787,43 @@
       let W = canvas.width = window.innerWidth, H = canvas.height = window.innerHeight;
       window.addEventListener('resize', () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }, { passive: true });
 
-      const COLORS = ['#c9a84c', '#e8c97a', '#f0dfa0', '#a87e2e', '#ffe0a0'];
+      const COLORS = ['#06b6d4', '#67e8f9', '#22d3ee', '#0891b2', '#0284c7'];
       const particles = [], ripples = [];
 
       class Particle {
         constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - .5) * 7; this.vy = (Math.random() - .5) * 7 - 2; this.r = Math.random() * 3.5 + 1.2; this.alpha = 1; this.decay = Math.random() * .022 + .015; this.color = COLORS[Math.floor(Math.random() * COLORS.length)]; this.gravity = .12; }
         update() { this.x += this.vx; this.vy += this.gravity; this.y += this.vy; this.vx *= .97; this.alpha -= this.decay; }
-        draw() { ctx.save(); ctx.globalAlpha = Math.max(0, this.alpha); ctx.fillStyle = this.color; ctx.shadowColor = this.color; ctx.shadowBlur = 8; ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+        draw() { 
+          ctx.save(); 
+          ctx.globalAlpha = Math.max(0, this.alpha); 
+          ctx.fillStyle = this.color; 
+          ctx.shadowColor = '#67e8f9'; 
+          ctx.shadowBlur = 10; 
+          ctx.beginPath(); 
+          if (this.r > 2) {
+            ctx.rect(this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
+          } else {
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); 
+          }
+          ctx.fill(); 
+          ctx.restore(); 
+        }
       }
       class Ripple {
         constructor(x, y) { this.x = x; this.y = y; this.r = 0; this.alpha = .7; }
         update() { this.r += 2.5; this.alpha -= .018; }
-        draw() { ctx.save(); ctx.globalAlpha = Math.max(0, this.alpha); ctx.strokeStyle = '#c9a84c'; ctx.lineWidth = 1.2; ctx.shadowColor = '#c9a84c'; ctx.shadowBlur = 10; ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.stroke(); ctx.restore(); }
+        draw() { 
+          ctx.save(); 
+          ctx.globalAlpha = Math.max(0, this.alpha); 
+          ctx.strokeStyle = '#06b6d4'; 
+          ctx.lineWidth = 1.5; 
+          ctx.shadowColor = '#67e8f9'; 
+          ctx.shadowBlur = 12; 
+          ctx.beginPath(); 
+          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); 
+          ctx.stroke(); 
+          ctx.restore(); 
+        }
       }
 
       function spawnBurst(x, y) {
@@ -1842,7 +1867,7 @@
       }
       if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
         const btn = document.createElement('div');
-        btn.style.cssText = 'position:fixed;bottom:1.5rem;right:1.2rem;z-index:500;font-family:Space Mono,monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);opacity:.75;background:rgba(12,13,15,.8);border:1px solid rgba(201,168,76,.3);padding:.55rem .9rem;border-radius:2px;backdrop-filter:blur(8px);cursor:pointer;';
+        btn.style.cssText = 'position:fixed;bottom:1.5rem;right:1.2rem;z-index:500;font-family:Space Mono,monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);opacity:.75;background:rgba(12,13,15,.8);border:1px solid rgba(6,182,212,.3);padding:.55rem .9rem;border-radius:2px;backdrop-filter:blur(8px);cursor:pointer;';
         btn.innerHTML = '✦ Enable Gyro';
         document.body.appendChild(btn);
         btn.addEventListener('click', () => {
@@ -1856,20 +1881,33 @@
       /* Scroll shimmer */
       let scrollFlash;
       window.addEventListener('scroll', () => {
-        bar.style.boxShadow = '0 0 12px 3px rgba(201,168,76,.7)';
+        bar.style.transition = 'height 0.1s ease, box-shadow 0.1s ease';
+        bar.style.height = '6px';
+        bar.style.boxShadow = '0 0 15px 3px rgba(6,182,212,0.8), 0 0 30px rgba(103,232,249,0.5)';
+        bar.style.backgroundColor = '#67e8f9';
+        
         clearTimeout(scrollFlash);
-        scrollFlash = setTimeout(() => { bar.style.boxShadow = 'none'; }, 300);
+        scrollFlash = setTimeout(() => { 
+          bar.style.height = '3px';
+          bar.style.boxShadow = 'none'; 
+          bar.style.backgroundColor = 'var(--gold)'; 
+        }, 150);
       }, { passive: true });
 
       /* Section flash */
       const secObs = new IntersectionObserver(entries => {
         entries.forEach(e => {
           if (!e.isIntersecting) return;
-          e.target.style.transition = 'box-shadow .4s ease';
-          e.target.style.boxShadow = 'inset 0 0 60px rgba(201,168,76,.06)';
-          setTimeout(() => { e.target.style.boxShadow = ''; }, 600);
+          e.target.style.transition = 'all 0.4s cubic-bezier(0.1, 1, 0.1, 1)';
+          e.target.style.boxShadow = 'inset 3px 0 0 #06b6d4, inset -3px 0 0 #06b6d4, inset 0 0 80px rgba(6,182,212,0.08)';
+          e.target.style.transform = 'scale(1.005)';
+          
+          setTimeout(() => { 
+            e.target.style.boxShadow = ''; 
+            e.target.style.transform = 'scale(1)';
+          }, 450);
         });
-      }, { threshold: .3 });
+      }, { threshold: .25 });
       document.querySelectorAll('section').forEach(s => secObs.observe(s));
     }
 
